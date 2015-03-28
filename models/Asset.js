@@ -75,7 +75,7 @@ module.exports = {
 	 */
 	search: function(searchObj, cb)
 	{
-		
+	
 		//Build search.
 		var whereClause = '';
 		
@@ -96,18 +96,18 @@ module.exports = {
 		}
 		
 
-		var query =  "SELECT * FROM tblImage WHERE MBRContains ( LineString ( Point ( "+searchObj.longitude + searchObj.range+" / ( 111.1 / COS(RADIANS("+searchObj.latitude+"))), "+searchObj.latitude + searchObj.range+" / 111.1 ), Point ( "+searchObj.longitude - searchObj.range+" / ( 111.1 / COS(RADIANS("+searchObj.latitude+"))),"+searchObj.latitude - searchObj.range+" / 111.1 )), mypoint ) AND "+whereClause;
-		
-		console.log(query);
-		
+		var query = "SELECT *, (3959 * acos(cos(radians('"+searchObj.latitude+"')) * cos(radians(latitude)) * cos( radians(longitude) - radians('"+searchObj.longitude+"')) + sin(radians('"+searchObj.latitude+"')) *  sin(radians(latitude))))  AS distance FROM tblImage HAVING distance < "+searchObj.range+" ORDER BY distance LIMIT 0 , 10;";	
+	
+	
 		connection.query(query, function(err, rows, fields){
-			
+	
+			console.log(err);		
+			console.log(query);
 			if(err) return cb(err, null);
 			return cb(null, rows);
 			
 			
 		});
-		
 	}
 		
 		
