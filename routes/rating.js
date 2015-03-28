@@ -75,7 +75,7 @@ router.get('/list', function(req, res){
 	
 	var errors = req.validationErrors(true);
 	if(errors){
-		return res.status(404).json({"status" : "OK", "errors" : util.inspect(errors)});
+		return res.status(200).json({"status" : "OK", "errors" : util.inspect(errors)});
 	}
 	
 	
@@ -92,7 +92,7 @@ router.get('/list', function(req, res){
 	Asset.search(searchObj, function(err, resp){
 		
 		if(err){
-			return res.status(500).json({"status" : "OK", "data" : {}});
+			return res.status(200).json({"status" : "OK", "data" : []});
 		}
 		else{
 			

@@ -95,7 +95,7 @@ router.put('/', function(req, res){
 router.post('/login', function(req, res){
 	
 	//Fetch params
-	var username = req.param("username"),
+	var username = req.body.username,
 		password = req.param("password");
 
 	//Validate & Sanitize
