@@ -58,6 +58,9 @@ module.exports = {
 			if(err) return cb(err, null);
 			
 			if(rows.affectedRows > 0){
+				//Update the rating average
+				var query = "UPDATE tblImage SET RateAverage = ((1*Rate1)+(2*Rate2)+(3*Rate3)+(4*Rate4)+(5*Rate5))/5";
+				connection.query(query);
 				return cb(null, true);
 			}
 			else{

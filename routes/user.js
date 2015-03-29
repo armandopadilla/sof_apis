@@ -98,6 +98,8 @@ router.post('/login', function(req, res){
 	var username = req.body.username,
 		password = req.param("password");
 
+		console.log(username);
+		console.log(password);
 	//Validate & Sanitize
 	req.checkBody('username', 'Invalid username').notEmpty().isAlphanumeric().isLength(4,16);
 	req.checkBody('password', 'Invalid password').notEmpty().isAlphanumeric().isLength(4,8);
@@ -107,14 +109,14 @@ router.post('/login', function(req, res){
 	
 	var errors = req.validationErrors(true);
 	if(errors){
-		return res.status(404).json({"status" : "OK", "errors" : util.inspect(errors)});
+		return res.status(200).json({"status" : "OK", "errors" : util.inspect(errors)});
 	}
 		
 	//Check if user is present.
 	User.auth({"username" : username, "password" : password}, function(err, resp){
 		
 		if(err){
-			return res.status(400).json({"status" : "OK", "errors": err});
+			return res.status(200).json({"status" : "OK", "errors": err});
 		}
 		else{
 			
@@ -122,7 +124,7 @@ router.post('/login', function(req, res){
 				return res.status(200).json({"status" : "OK", "data": "valid"});
 			}
 			else{
-				return res.status(400).json({"status" : "OK", "data" : "invalid"});
+				return res.status(200).json({"status" : "OK", "data" : "invalid"});
 			}
 		}
 		

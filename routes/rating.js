@@ -13,7 +13,9 @@ router.post('/submit/:id', function(req, res){
 	//Ini vars.
 	var assetId = req.param("id"),
 		rating = req.param("rating");
-	
+
+console.log(assetId);
+console.log(rating);	
 	//Validate and Sanitize
 	req.checkParams('id', 'Invalid id').notEmpty().isInt();
 	req.checkBody('rating' , 'Invalid rating').notEmpty().isInt();
